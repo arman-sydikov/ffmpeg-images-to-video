@@ -1,4 +1,0 @@
-file 20230326172134.jpg
-duration 1
-file_packet_meta date '2023-03-26 17:21:34'
-file 20230326172134.jpg
