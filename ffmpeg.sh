@@ -12,7 +12,7 @@ imgToMp4 () {
     # format date to: yyyyMMddHHmmss
     gmtDate=$(mdls -raw -name kMDItemContentCreationDate $f);
     utcDate=$(date -f '%F %T %z' -j "$gmtDate" '+%Y%m%d%H%M%S');
-    mv $f $utcDate.${f##*.};
+    # mv $f $utcDate.${f##*.};
   done
 
   # print filenames
