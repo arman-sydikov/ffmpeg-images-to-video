@@ -6,25 +6,20 @@ imgToMp4 () {
   # clear file
   > input.txt;
 
-  # rename files
-  for f in *.jpg;
-  do
-    # format date to: yyyyMMddHHmmss
-    gmtDate=$(mdls -raw -name kMDItemContentCreationDate $f);
-    utcDate=$(date -f '%F %T %z' -j "$gmtDate" '+%Y%m%d%H%M%S');
-    # mv $f $utcDate.${f##*.};
-  done
-
   # print filenames
   for f in *.jpg;
   do
     echo "file $f" >> input.txt;
-    echo "duration 1" >> input.txt;
-
-    # format date to: yyyy-MM-dd HH:mm:ss
-    gmtDate=$(mdls -raw -name kMDItemContentCreationDate $f);
-    utcDate=$(date -f '%F %T %z' -j "$gmtDate" '+%F %T');
-    echo "file_packet_meta date '$utcDate'" >> input.txt;
+    if [ "IMG_20230101_000000.jpg" = $f ]
+    then
+      echo "duration 2" >> input.txt;
+    else
+      echo "duration 0.5" >> input.txt;
+      # format date to: yyyy-MM-dd HH:mm:ss
+      gmtDate=$(mdls -raw -name kMDItemContentCreationDate $f);
+      utcDate=$(date -f '%F %T %z' -j "$gmtDate" '+%F %T');
+      echo "file_packet_meta date '$utcDate'" >> input.txt;
+    fi
   done
 
   # Due to a quirk, the last image has to be specified twice - the 2nd time without any duration directive
